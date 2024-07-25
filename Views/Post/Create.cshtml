@@ -1,0 +1,55 @@
+﻿@model Post
+@inject DbContextBlog db;
+@{
+    var posts = db.Posts.ToList();
+}
+<h2>Create Post</h2>
+@if (TempData.ContainsKey("msg"))
+{
+    <div class="alert alert-info">@TempData["msg"]</div>
+}
+<form method="post" asp-action="Create" asp-Controller="Post">
+    @*<label asp-for="Id"></label>
+   <br /> <span class="alert-danger" asp-validation-for="Id"></span>
+    <input asp-for="Id" />
+    <br />*@
+    <label asp-for="Title"></label>
+    <br /> <span class="alert-danger" asp-validation-for="Title"></span>
+    <input asp-for="Title" />
+    <br />
+    <label asp-for="Content"></label>
+    <br /> <span class="alert-danger" asp-validation-for="Content"></span>
+    <input asp-for="Content" />
+    <br /> 
+    <button class="btn btn-primary" type="submit"> Add Post</button>
+
+</form>
+
+@if (posts is not null)
+{
+    <table class="datatable-users table border">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in posts)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.Content</td>
+                    <td><a asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-primary">Update</a></td>
+                    <td><a asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger">Delete</a></td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}

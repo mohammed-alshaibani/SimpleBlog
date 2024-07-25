@@ -1,0 +1,22 @@
+﻿@model Post
+<h2>Update Post</h2>
+@if (TempData.ContainsKey("msg"))
+{
+    <div class="alert alert-info">@TempData["msg"]</div>
+}
+<form method="post" asp-action="Edit">
+    @*<label asp-for="Id"></label>
+   <br /> <span class="alert-danger" asp-validation-for="Id"></span>
+    <input asp-for="Id" />
+    <br />*@
+    <label asp-for="Title"></label>
+    <br /> <span class="alert-danger" asp-validation-for="Title"></span>
+    <input asp-for="Title" />
+    <br />
+    <label asp-for="Content"></label>
+    <br /> <span class="alert-danger" asp-validation-for="Content"></span>
+    <input asp-for="Content" />
+    <br /> 
+    <button class="btn btn-primary" type="submit"> Edit Post</button>
+
+</form>

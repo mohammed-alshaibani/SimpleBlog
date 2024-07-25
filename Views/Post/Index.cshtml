@@ -1,0 +1,42 @@
+﻿@model List<SimpleBlog.Models.Post>
+
+<h2>Posts</h2>
+<a asp-controller="Post" asp-action="Create">Add new</a>
+@if (TempData.ContainsKey("msg"))
+{
+    <div id="notitife">@TempData["msg"]</div>
+}
+
+@if (Model is not null)
+{
+    <table class="datatable-users table border">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.Content</td>
+                    <td><a asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-primary">Update</a></td>
+                       <td>
+                        <form asp-controller="Post" asp-action="Delete" asp-route-Id="@item.Id" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>                </tr>
+            }
+        </tbody>
+    </table>
+}
+<script src="~/js/microsoft/signalr/dist/browser/signalr.min.js"></script>
+<script src=”~/js/notification.js”></script>
+ 
